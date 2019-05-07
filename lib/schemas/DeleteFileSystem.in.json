@@ -1,0 +1,101 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The request object for <code>DeleteFileSystem</code> operation.",
+            "example": {
+                "FileSystemId": "fs-0498eed5fe91001ec"
+            },
+            "properties": {
+                "ClientRequestToken": {
+                    "description": "(Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This is automatically filled on your behalf when using the AWS CLI or SDK.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "pattern": "[A-za-z0-9_/.-]{0,255}$",
+                    "type": "string"
+                },
+                "FileSystemId": {
+                    "description": "The ID of the file system you want to delete.",
+                    "maxLength": 21,
+                    "minLength": 11,
+                    "pattern": "^(fs-[0-9a-f]{8,})$",
+                    "type": "string"
+                },
+                "WindowsConfiguration": {
+                    "description": "The configuration object for the Microsoft Windows file system used in the <code>DeleteFileSystem</code> operation.",
+                    "properties": {
+                        "FinalBackupTags": {
+                            "description": "A set of tags for your final backup.",
+                            "items": {
+                                "description": "Specifies a key-value pair for a resource tag.",
+                                "properties": {
+                                    "Key": {
+                                        "description": "A value that specifies the <code>TagKey</code>, the name of the tag. Tag keys must be unique for the resource to which they are attached.",
+                                        "maxLength": 128,
+                                        "minLength": 1,
+                                        "type": "string"
+                                    },
+                                    "Value": {
+                                        "description": "A value that specifies the <code>TagValue</code>, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <code>finances : April</code> and also of <code>payroll : April</code>.",
+                                        "maxLength": 256,
+                                        "minLength": 0,
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "maxItems": 50,
+                            "minItems": 1,
+                            "type": "array"
+                        },
+                        "SkipFinalBackup": {
+                            "description": "By default, Amazon FSx for Windows takes a final backup on your behalf when the <code>DeleteFileSystem</code> operation is invoked. Doing this helps protect you from data loss, and we highly recommend taking the final backup. If you want to skip this backup, use this flag to do so.",
+                            "type": "boolean"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "FileSystemId"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

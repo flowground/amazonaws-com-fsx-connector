@@ -1,0 +1,15 @@
+{
+    "name": "amazonaws-com-fsx-connector",
+    "version": "2018.0.0",
+    "description": "Amazon FSx is a fully managed service that makes it easy for storage and application administrators to launch and use shared file storage.",
+    "main": "component.json",
+    "dependencies": {
+        "elasticio-node": "0.0.9",
+        "elasticio-sailor-nodejs": "^2.2.1",
+        "swagger-client": "^3.8.22"
+    },
+    "author": {
+        "name": "Deutsche Telekom AG"
+    },
+    "license": "Apache-2.0"
+}

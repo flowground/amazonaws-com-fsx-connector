@@ -1,0 +1,76 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The request object for <code>UntagResource</code> action.",
+            "example": {
+                "ResourceARN": "arn:aws:fsx:us-east-1:012345678912:file-system/fs-0498eed5fe91001ec",
+                "TagKeys": [
+                    "Name"
+                ]
+            },
+            "properties": {
+                "ResourceARN": {
+                    "description": "The ARN of the Amazon FSx resource to untag.",
+                    "maxLength": 512,
+                    "minLength": 8,
+                    "pattern": "^arn:aws[a-z-]{0,7}:[A-Za-z0-9][A-za-z0-9_/.-]{0,62}:[A-za-z0-9_/.-]{0,63}:[A-za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-za-z0-9_/.-]{0,127}$",
+                    "type": "string"
+                },
+                "TagKeys": {
+                    "description": "A list of keys of tags on the resource to untag. In case the tag key doesn't exist, the call will still succeed to be idempotent.",
+                    "items": {
+                        "description": "A string of 1 to 128 characters that specifies the key for a tag. Tag keys must be unique for the resource to which they are attached.",
+                        "maxLength": 128,
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "ResourceARN",
+                "TagKeys"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,229 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The request object for the <code>CreateFileSystem</code> operation.",
+            "example": {
+                "ClientRequestToken": "a8ca07e4-61ec-4399-99f4-19853801bcd5",
+                "FileSystemType": "WINDOWS",
+                "KmsKeyId": "arn:aws:kms:us-east-1:012345678912:key/0ff3ea8d-130e-4133-877f-93908b6fdbd6",
+                "SecurityGroupIds": [
+                    "sg-edcd9784"
+                ],
+                "StorageCapacity": 300,
+                "SubnetIds": [
+                    "subnet-1234abcd"
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyFileSystem"
+                    }
+                ],
+                "WindowsConfiguration": {
+                    "ActiveDirectoryId": "d-1234abcd12",
+                    "AutomaticBackupRetentionDays": 30,
+                    "DailyAutomaticBackupStartTime": "05:00",
+                    "ThroughputCapacity": 8,
+                    "WeeklyMaintenanceStartTime": "1:05:00"
+                }
+            },
+            "properties": {
+                "ClientRequestToken": {
+                    "description": "(Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "pattern": "[A-za-z0-9_/.-]{0,255}$",
+                    "type": "string"
+                },
+                "FileSystemType": {
+                    "description": "The type of file system.",
+                    "enum": [
+                        "WINDOWS",
+                        "LUSTRE"
+                    ],
+                    "type": "string"
+                },
+                "KmsKeyId": {
+                    "description": "The ID of your AWS Key Management Service (AWS KMS) key. This ID is used to encrypt the data in your file system at rest. For more information, see <a href=\"https://docs.aws.amazon.com/kms/latest/APIReference/API_Encrypt.html\">Encrypt</a> in the <i>AWS Key Management Service API Reference</i>.",
+                    "maxLength": 2048,
+                    "minLength": 1,
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}|arn:aws[a-z-]{0,7}:kms:[a-z]{2}-[a-z-]{4,}-\\d+:\\d{12}:(key|alias)\\/([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}|[a-zA-Z0-9:\\/_-]+)|alias\\/[a-zA-Z0-9:\\/_-]+$",
+                    "type": "string"
+                },
+                "LustreConfiguration": {
+                    "description": "The configuration object for Lustre file systems used in the <code>CreateFileSystem</code> operation.",
+                    "properties": {
+                        "ExportPath": {
+                            "description": "<p>(Optional) The path in Amazon S3 where the root of your Amazon FSx file system is exported. The path must use the same Amazon S3 bucket as specified in ImportPath. You can provide an optional prefix to which new and changed data is to be exported from your Amazon FSx for Lustre file system. If an <code>ExportPath</code> value is not provided, Amazon FSx sets a default export path, <code>s3://import-bucket/FSxLustre[creation-timestamp]</code>. The timestamp is in UTC format, for example <code>s3://import-bucket/FSxLustre20181105T222312Z</code>.</p> <p>The Amazon S3 export bucket must be the same as the import bucket specified by <code>ImportPath</code>. If you only specify a bucket name, such as <code>s3://import-bucket</code>, you get a 1:1 mapping of file system objects to S3 bucket objects. This mapping means that the input data in S3 is overwritten on export. If you provide a custom prefix in the export path, such as <code>s3://import-bucket/[custom-optional-prefix]</code>, Amazon FSx exports the contents of your file system to that export prefix in the Amazon S3 bucket.</p>",
+                            "maxLength": 900,
+                            "minLength": 3,
+                            "type": "string"
+                        },
+                        "ImportPath": {
+                            "description": "(Optional) The path to the Amazon S3 bucket (including the optional prefix) that you're using as the data repository for your Amazon FSx for Lustre file system. The root of your FSx for Lustre file system will be mapped to the root of the Amazon S3 bucket you select. An example is <code>s3://import-bucket/optional-prefix</code>. If you specify a prefix after the Amazon S3 bucket name, only object keys with that prefix are loaded into the file system.",
+                            "maxLength": 900,
+                            "minLength": 3,
+                            "type": "string"
+                        },
+                        "ImportedFileChunkSize": {
+                            "description": "<p>(Optional) For files imported from a data repository, this value determines the stripe count and maximum amount of data per file (in MiB) stored on a single physical disk. The maximum number of disks that a single file can be striped across is limited by the total number of disks that make up the file system.</p> <p>The chunk size default is 1,024 MiB (1 GiB) and can go as high as 512,000 MiB (500 GiB). Amazon S3 objects have a maximum size of 5 TB.</p>",
+                            "maximum": 512000,
+                            "minimum": 1,
+                            "type": "integer"
+                        },
+                        "WeeklyMaintenanceStartTime": {
+                            "description": "The preferred time to perform weekly maintenance, in the UTC time zone.",
+                            "maxLength": 7,
+                            "minLength": 7,
+                            "pattern": "^[1-7]:([01]\\d|2[0-3]):?([0-5]\\d)$",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "SecurityGroupIds": {
+                    "description": "A list of IDs for the security groups that apply to the specified network interfaces created for file system access. These security groups will apply to all network interfaces. This list isn't returned in later describe requests.",
+                    "items": {
+                        "description": "The ID of your Amazon EC2 security group. This ID is used to control network access to the endpoint that Amazon FSx creates on your behalf in each subnet. For more information, see <a href=\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html\">Amazon EC2 Security Groups for Linux Instances</a> in the <i>Amazon EC2 User Guide</i>.",
+                        "maxLength": 20,
+                        "minLength": 11,
+                        "pattern": "^(sg-[0-9a-f]{8,})$",
+                        "type": "string"
+                    },
+                    "maxItems": 50,
+                    "type": "array"
+                },
+                "StorageCapacity": {
+                    "description": "<p>The storage capacity of the file system.</p> <p>For Windows file systems, the storage capacity has a minimum of 300 GiB, and a maximum of 65,536 GiB.</p> <p>For Lustre file systems, the storage capacity has a minimum of 3,600 GiB. Storage capacity is provisioned in increments of 3,600 GiB.</p>",
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "SubnetIds": {
+                    "description": "A list of IDs for the subnets that the file system will be accessible from. File systems support only one subnet. The file server is also launched in that subnet's Availability Zone.",
+                    "items": {
+                        "description": "The ID for a subnet. A <i>subnet</i> is a range of IP addresses in your virtual private cloud (VPC). For more information, see <a href=\"https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html\">VPC and Subnets</a> in the <i>Amazon VPC User Guide.</i> ",
+                        "maxLength": 24,
+                        "minLength": 15,
+                        "pattern": "^(subnet-[0-9a-f]{8,})$",
+                        "type": "string"
+                    },
+                    "maxItems": 50,
+                    "type": "array"
+                },
+                "Tags": {
+                    "description": "The tags to be applied to the file system at file system creation. The key value of the <code>Name</code> tag appears in the console as the file system name.",
+                    "items": {
+                        "description": "Specifies a key-value pair for a resource tag.",
+                        "properties": {
+                            "Key": {
+                                "description": "A value that specifies the <code>TagKey</code>, the name of the tag. Tag keys must be unique for the resource to which they are attached.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "A value that specifies the <code>TagValue</code>, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <code>finances : April</code> and also of <code>payroll : April</code>.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "WindowsConfiguration": {
+                    "description": "The configuration for this Microsoft Windows file system.",
+                    "properties": {
+                        "ActiveDirectoryId": {
+                            "description": "The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.",
+                            "maxLength": 12,
+                            "minLength": 12,
+                            "pattern": "^d-[0-9a-f]{10}$",
+                            "type": "string"
+                        },
+                        "AutomaticBackupRetentionDays": {
+                            "description": "The number of days to retain automatic backups. The default is to retain backups for 7 days. Setting this value to 0 disables the creation of automatic backups. The maximum retention period for backups is 35 days.",
+                            "maximum": 35,
+                            "minimum": 0,
+                            "type": "integer"
+                        },
+                        "CopyTagsToBackups": {
+                            "description": "A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to false. If it's set to true, all tags on the file system are copied to all automatic backups and any user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or more tags, only the specified tags are copied to backups.",
+                            "type": "boolean"
+                        },
+                        "DailyAutomaticBackupStartTime": {
+                            "description": "The preferred time to take daily automatic backups, in the UTC time zone.",
+                            "maxLength": 5,
+                            "minLength": 5,
+                            "pattern": "^([01]\\d|2[0-3]):?([0-5]\\d)$",
+                            "type": "string"
+                        },
+                        "ThroughputCapacity": {
+                            "description": "The throughput of an Amazon FSx file system, measured in megabytes per second.",
+                            "maximum": 2048,
+                            "minimum": 8,
+                            "type": "integer"
+                        },
+                        "WeeklyMaintenanceStartTime": {
+                            "description": "The preferred start time to perform weekly maintenance, in the UTC time zone.",
+                            "maxLength": 7,
+                            "minLength": 7,
+                            "pattern": "^[1-7]:([01]\\d|2[0-3]):?([0-5]\\d)$",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "ThroughputCapacity"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "FileSystemType",
+                "StorageCapacity",
+                "SubnetIds"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

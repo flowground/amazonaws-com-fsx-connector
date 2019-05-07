@@ -1,0 +1,91 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The request object for the <code>TagResource</code> operation.",
+            "example": {
+                "ResourceARN": "arn:aws:fsx:us-east-1:012345678912:file-system/fs-0498eed5fe91001ec",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyFileSystem"
+                    }
+                ]
+            },
+            "properties": {
+                "ResourceARN": {
+                    "description": "The Amazon Resource Name (ARN) of the Amazon FSx resource that you want to tag.",
+                    "maxLength": 512,
+                    "minLength": 8,
+                    "pattern": "^arn:aws[a-z-]{0,7}:[A-Za-z0-9][A-za-z0-9_/.-]{0,62}:[A-za-z0-9_/.-]{0,63}:[A-za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-za-z0-9_/.-]{0,127}$",
+                    "type": "string"
+                },
+                "Tags": {
+                    "description": "A list of tags for the resource. If a tag with a given key already exists, the value is replaced by the one specified in this parameter.",
+                    "items": {
+                        "description": "Specifies a key-value pair for a resource tag.",
+                        "properties": {
+                            "Key": {
+                                "description": "A value that specifies the <code>TagKey</code>, the name of the tag. Tag keys must be unique for the resource to which they are attached.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "A value that specifies the <code>TagValue</code>, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <code>finances : April</code> and also of <code>payroll : April</code>.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "ResourceARN",
+                "Tags"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

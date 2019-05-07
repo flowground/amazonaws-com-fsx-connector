@@ -1,0 +1,97 @@
+{
+    "type": "object",
+    "properties": {
+        "Action": {
+            "required": true,
+            "type": "string"
+        },
+        "Version": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "The request object for the <code>CreateBackup</code> operation.",
+            "example": {
+                "FileSystemId": "fs-0498eed5fe91001ec",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "MyBackup"
+                    }
+                ]
+            },
+            "properties": {
+                "ClientRequestToken": {
+                    "description": "(Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent creation. This string is automatically filled on your behalf when you use the AWS Command Line Interface (AWS CLI) or an AWS SDK.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "pattern": "[A-za-z0-9_/.-]{0,255}$",
+                    "type": "string"
+                },
+                "FileSystemId": {
+                    "description": "The ID of the file system to back up.",
+                    "maxLength": 21,
+                    "minLength": 11,
+                    "pattern": "^(fs-[0-9a-f]{8,})$",
+                    "type": "string"
+                },
+                "Tags": {
+                    "description": "The tags to apply to the backup at backup creation. The key value of the <code>Name</code> tag appears in the console as the backup name.",
+                    "items": {
+                        "description": "Specifies a key-value pair for a resource tag.",
+                        "properties": {
+                            "Key": {
+                                "description": "A value that specifies the <code>TagKey</code>, the name of the tag. Tag keys must be unique for the resource to which they are attached.",
+                                "maxLength": 128,
+                                "minLength": 1,
+                                "type": "string"
+                            },
+                            "Value": {
+                                "description": "A value that specifies the <code>TagValue</code>, the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <code>finances : April</code> and also of <code>payroll : April</code>.",
+                                "maxLength": 256,
+                                "minLength": 0,
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "maxItems": 50,
+                    "minItems": 1,
+                    "type": "array"
+                }
+            },
+            "required": [
+                "FileSystemId"
+            ],
+            "type": "object"
+        },
+        "X_Amz_Content_Sha256": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Date": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Algorithm": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Credential": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Security_Token": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_Signature": {
+            "required": false,
+            "type": "string"
+        },
+        "X_Amz_SignedHeaders": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}
